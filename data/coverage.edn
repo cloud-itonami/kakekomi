@@ -1,0 +1,50 @@
+;; kakekomi — カバレッジの明示的記録
+;;
+;; この corpus は全世界を網羅していない。網羅していないことを黙って持つと、
+;; 下流（cloud-kyusai の referral draft、クエリ面の集計）が「載っていない国＝
+;; 該当なし」と読んでしまう。ここに差を数値で残し、載っていない国は
+;; 「対象外」ではなく「まだ収集していない」であることを明示する。
+;;
+;; superproject CLAUDE.md の system dynamics 節と同じ規律:
+;;   いかなる法域も categorical に除外しない。今日値を持たないことは
+;;   カバレッジ未達であって対象外ではない。
+
+[{:kakekomi/kind "coverage"
+  :coverage/id "jurisdiction-2026-08-03"
+  :coverage/plane :jurisdiction
+  :coverage/seeded 42
+  :coverage/universe 249
+  :coverage/universe-basis "ISO 3166-1 に割り当てられた符号数"
+  :coverage/status :partial
+  :coverage/absent-means :not-yet-collected
+  :coverage/selection-basis
+  "日本からの渡航者数が多い国と、被害届の実務が特徴的で書く価値のある国を優先した。無作為抽出ではないので、この 42 件から世界全体の傾向を推定しない。"
+  :coverage/how-to-extend
+  "data/jurisdiction.edn に entity を 1 つ足すだけでよい。:jurisdiction/iso3166-alpha3 と :fact/confidence / :fact/verification を必ず埋める。値が確認できない項目は書かない——空欄のまま残す方が、推測で埋めるより下流にとって安全である。"
+  :coverage/as-of "2026-08-03"}
+
+ {:kakekomi/kind "coverage"
+  :coverage/id "verification-2026-08-03"
+  :coverage/plane :verification
+  :coverage/status :partial
+  :coverage/verified-primary-source
+  "consular-jp.edn の 5 entity（外務省ページを参照）と insurance.edn の 4 entity（国内損保 FAQ・国民生活センターを参照）"
+  :coverage/pending-primary-source
+  "jurisdiction.edn の全 42 entity の緊急番号・被害届名称。広く確立した事実として記載しているが、この corpus としては各国当局の一次情報での確認をまだ行っていない。"
+  :coverage/risk
+  "緊急番号は変更頻度が低いが、変更されないわけではない。実際に使う場面では jurisdiction 側の値を唯一の根拠にせず、渡航前に外務省 国別安全情報で確認する経路を残しておくこと。"
+  :coverage/as-of "2026-08-03"}
+
+ {:kakekomi/kind "coverage"
+  :coverage/id "playbook-2026-08-03"
+  :coverage/plane :playbook
+  :coverage/seeded 9
+  :coverage/status :partial
+  :coverage/absent-means :not-yet-collected
+  :coverage/known-gaps
+  ["誘拐・拘束（express kidnapping を含む）"
+   "拘留・逮捕された場合（被害者ではなく被疑者側になった場合）"
+   "交通事故（加害・被害の双方）"
+   "薬物を盛られる類型（drink spiking）"
+   "同行者が被害に遭い本人が付き添う場合の手続き"]
+  :coverage/as-of "2026-08-03"}]

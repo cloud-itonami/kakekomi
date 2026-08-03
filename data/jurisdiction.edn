@@ -1,0 +1,333 @@
+;; kakekomi — 法域ごとに変わる値（緊急番号・被害届の現地名称）
+;;
+;; 形式: entity map の vector。1 entity = 1 法域。
+;; 結合キー: :jurisdiction/iso3166-alpha3。cloud-itonami-iso3166-<alpha3> repo 群
+;; および統合クエリ面の他 dataset とはこのキーで join する。
+;;
+;; **カバレッジは網羅していない。** ここに無い国は「対象外」ではなく
+;; 「まだ収集していない（:not-yet-collected）」である——data/coverage.edn が
+;; その差を明示的に記録する。存在しない国の値を推測で埋めない。
+;;
+;; :fact/verification の意味:
+;;   :verified-primary-source — 一次情報を実際に取得して確認した
+;;   :pending-primary-source  — 広く確立した事実として記載したが、この corpus
+;;                              としては一次情報での確認をまだ行っていない
+;; 後者を「検証済み」として下流に流さないこと。
+
+[{:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "JPN" :jurisdiction/iso3166-alpha2 "JP"
+  :jurisdiction/name-ja "日本" :jurisdiction/name-en "Japan"
+  :jurisdiction/emergency-police "110"
+  :jurisdiction/emergency-medical "119"
+  :jurisdiction/police-report-term "被害届"
+  :jurisdiction/notes "本 corpus は日本国籍者が国外で被害に遭う場合を主対象にしているため、日本は主に比較の基準として載せている"
+  :fact/confidence :well-established :fact/verification :pending-primary-source
+  :fact/primary-source "https://www.npa.go.jp/"}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "USA" :jurisdiction/iso3166-alpha2 "US"
+  :jurisdiction/name-ja "アメリカ合衆国" :jurisdiction/name-en "United States"
+  :jurisdiction/emergency-universal "911"
+  :jurisdiction/police-report-term "police report"
+  :jurisdiction/notes "警察は市・郡・州で管轄が分かれる。被害地の管轄署でないと受理されないことがある"
+  :fact/confidence :well-established :fact/verification :pending-primary-source
+  :fact/primary-source "https://www.usa.gov/emergency"}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "CAN" :jurisdiction/iso3166-alpha2 "CA"
+  :jurisdiction/name-ja "カナダ" :jurisdiction/name-en "Canada"
+  :jurisdiction/emergency-universal "911"
+  :jurisdiction/police-report-term "police report"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "GBR" :jurisdiction/iso3166-alpha2 "GB"
+  :jurisdiction/name-ja "イギリス" :jurisdiction/name-en "United Kingdom"
+  :jurisdiction/emergency-universal "999"
+  :jurisdiction/emergency-alt "112"
+  :jurisdiction/emergency-nonurgent "101"
+  :jurisdiction/police-report-term "crime reference number"
+  :jurisdiction/notes "緊急でない被害届は 101 またはオンライン。保険で要求されるのは crime reference number"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "FRA" :jurisdiction/iso3166-alpha2 "FR"
+  :jurisdiction/name-ja "フランス" :jurisdiction/name-en "France"
+  :jurisdiction/emergency-police "17"
+  :jurisdiction/emergency-universal "112"
+  :jurisdiction/emergency-medical "15"
+  :jurisdiction/police-report-term "plainte（dépôt de plainte）"
+  :jurisdiction/notes "plainte（告訴・捜査を求める）と main courante（単なる記録）は別物。保険請求には plainte が要る"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "DEU" :jurisdiction/iso3166-alpha2 "DE"
+  :jurisdiction/name-ja "ドイツ" :jurisdiction/name-en "Germany"
+  :jurisdiction/emergency-police "110"
+  :jurisdiction/emergency-universal "112"
+  :jurisdiction/police-report-term "Strafanzeige / Diebstahlsanzeige"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "ITA" :jurisdiction/iso3166-alpha2 "IT"
+  :jurisdiction/name-ja "イタリア" :jurisdiction/name-en "Italy"
+  :jurisdiction/emergency-universal "112"
+  :jurisdiction/police-report-term "denuncia"
+  :jurisdiction/notes "Polizia di Stato と Carabinieri のどちらでも denuncia を受理する"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "ESP" :jurisdiction/iso3166-alpha2 "ES"
+  :jurisdiction/name-ja "スペイン" :jurisdiction/name-en "Spain"
+  :jurisdiction/emergency-universal "112"
+  :jurisdiction/emergency-police "091"
+  :jurisdiction/police-report-term "denuncia"
+  :jurisdiction/notes "観光地では外国語対応の窓口や電話・オンラインでの denuncia 受付が用意されていることがあるが、最終的に署へ出頭して署名を求められる運用がある"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "PRT" :jurisdiction/iso3166-alpha2 "PT"
+  :jurisdiction/name-ja "ポルトガル" :jurisdiction/name-en "Portugal"
+  :jurisdiction/emergency-universal "112"
+  :jurisdiction/police-report-term "queixa / participação"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "NLD" :jurisdiction/iso3166-alpha2 "NL"
+  :jurisdiction/name-ja "オランダ" :jurisdiction/name-en "Netherlands"
+  :jurisdiction/emergency-universal "112"
+  :jurisdiction/police-report-term "aangifte"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "BEL" :jurisdiction/iso3166-alpha2 "BE"
+  :jurisdiction/name-ja "ベルギー" :jurisdiction/name-en "Belgium"
+  :jurisdiction/emergency-universal "112"
+  :jurisdiction/emergency-police "101"
+  :jurisdiction/police-report-term "aangifte / plainte"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "CHE" :jurisdiction/iso3166-alpha2 "CH"
+  :jurisdiction/name-ja "スイス" :jurisdiction/name-en "Switzerland"
+  :jurisdiction/emergency-police "117"
+  :jurisdiction/emergency-universal "112"
+  :jurisdiction/police-report-term "Strafanzeige / plainte / denuncia"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "AUT" :jurisdiction/iso3166-alpha2 "AT"
+  :jurisdiction/name-ja "オーストリア" :jurisdiction/name-en "Austria"
+  :jurisdiction/emergency-police "133"
+  :jurisdiction/emergency-universal "112"
+  :jurisdiction/police-report-term "Anzeige"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "CZE" :jurisdiction/iso3166-alpha2 "CZ"
+  :jurisdiction/name-ja "チェコ" :jurisdiction/name-en "Czechia"
+  :jurisdiction/emergency-universal "112"
+  :jurisdiction/emergency-police "158"
+  :jurisdiction/police-report-term "trestní oznámení"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "GRC" :jurisdiction/iso3166-alpha2 "GR"
+  :jurisdiction/name-ja "ギリシャ" :jurisdiction/name-en "Greece"
+  :jurisdiction/emergency-universal "112"
+  :jurisdiction/emergency-police "100"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "POL" :jurisdiction/iso3166-alpha2 "PL"
+  :jurisdiction/name-ja "ポーランド" :jurisdiction/name-en "Poland"
+  :jurisdiction/emergency-universal "112"
+  :jurisdiction/emergency-police "997"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "NOR" :jurisdiction/iso3166-alpha2 "NO"
+  :jurisdiction/name-ja "ノルウェー" :jurisdiction/name-en "Norway"
+  :jurisdiction/emergency-police "112"
+  :jurisdiction/emergency-medical "113"
+  :jurisdiction/emergency-fire "110"
+  :jurisdiction/notes "番号割当が他の欧州諸国と異なる（110=消防 / 112=警察 / 113=救急）。112 が警察である点に注意"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "SWE" :jurisdiction/iso3166-alpha2 "SE"
+  :jurisdiction/name-ja "スウェーデン" :jurisdiction/name-en "Sweden"
+  :jurisdiction/emergency-universal "112"
+  :jurisdiction/police-report-term "polisanmälan"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "DNK" :jurisdiction/iso3166-alpha2 "DK"
+  :jurisdiction/name-ja "デンマーク" :jurisdiction/name-en "Denmark"
+  :jurisdiction/emergency-universal "112"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "FIN" :jurisdiction/iso3166-alpha2 "FI"
+  :jurisdiction/name-ja "フィンランド" :jurisdiction/name-en "Finland"
+  :jurisdiction/emergency-universal "112"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "AUS" :jurisdiction/iso3166-alpha2 "AU"
+  :jurisdiction/name-ja "オーストラリア" :jurisdiction/name-en "Australia"
+  :jurisdiction/emergency-universal "000"
+  :jurisdiction/emergency-alt "112"
+  :jurisdiction/notes "112 は携帯端末からの代替番号として機能する"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "NZL" :jurisdiction/iso3166-alpha2 "NZ"
+  :jurisdiction/name-ja "ニュージーランド" :jurisdiction/name-en "New Zealand"
+  :jurisdiction/emergency-universal "111"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "KOR" :jurisdiction/iso3166-alpha2 "KR"
+  :jurisdiction/name-ja "韓国" :jurisdiction/name-en "South Korea"
+  :jurisdiction/emergency-police "112"
+  :jurisdiction/emergency-medical "119"
+  :jurisdiction/police-report-term "도난신고"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "CHN" :jurisdiction/iso3166-alpha2 "CN"
+  :jurisdiction/name-ja "中国" :jurisdiction/name-en "China"
+  :jurisdiction/emergency-police "110"
+  :jurisdiction/emergency-medical "120"
+  :jurisdiction/police-report-term "报案回执"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "TWN" :jurisdiction/iso3166-alpha2 "TW"
+  :jurisdiction/name-ja "台湾" :jurisdiction/name-en "Taiwan"
+  :jurisdiction/emergency-police "110"
+  :jurisdiction/emergency-medical "119"
+  :jurisdiction/police-report-term "報案三聯單"
+  :jurisdiction/notes "日本は台湾と外交関係を持たないため、領事業務に相当する支援は日本台湾交流協会が担う（consular-jp.edn の :consular/note 参照）"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "HKG" :jurisdiction/iso3166-alpha2 "HK"
+  :jurisdiction/name-ja "香港" :jurisdiction/name-en "Hong Kong"
+  :jurisdiction/emergency-universal "999"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "SGP" :jurisdiction/iso3166-alpha2 "SG"
+  :jurisdiction/name-ja "シンガポール" :jurisdiction/name-en "Singapore"
+  :jurisdiction/emergency-police "999"
+  :jurisdiction/emergency-medical "995"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "THA" :jurisdiction/iso3166-alpha2 "TH"
+  :jurisdiction/name-ja "タイ" :jurisdiction/name-en "Thailand"
+  :jurisdiction/emergency-police "191"
+  :jurisdiction/emergency-tourist-police "1155"
+  :jurisdiction/police-report-term "ใบแจ้งความ"
+  :jurisdiction/notes "ツーリストポリス（1155）は外国語対応があり、一般警察署より外国人被害の取り扱いに慣れている"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "MYS" :jurisdiction/iso3166-alpha2 "MY"
+  :jurisdiction/name-ja "マレーシア" :jurisdiction/name-en "Malaysia"
+  :jurisdiction/emergency-universal "999"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "IDN" :jurisdiction/iso3166-alpha2 "ID"
+  :jurisdiction/name-ja "インドネシア" :jurisdiction/name-en "Indonesia"
+  :jurisdiction/emergency-police "110"
+  :jurisdiction/emergency-universal "112"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "PHL" :jurisdiction/iso3166-alpha2 "PH"
+  :jurisdiction/name-ja "フィリピン" :jurisdiction/name-en "Philippines"
+  :jurisdiction/emergency-universal "911"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "VNM" :jurisdiction/iso3166-alpha2 "VN"
+  :jurisdiction/name-ja "ベトナム" :jurisdiction/name-en "Vietnam"
+  :jurisdiction/emergency-police "113"
+  :jurisdiction/emergency-medical "115"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "IND" :jurisdiction/iso3166-alpha2 "IN"
+  :jurisdiction/name-ja "インド" :jurisdiction/name-en "India"
+  :jurisdiction/emergency-universal "112"
+  :jurisdiction/emergency-police "100"
+  :jurisdiction/police-report-term "FIR (First Information Report)"
+  :jurisdiction/notes "FIR の写しは保険請求で求められる。受理を渋られることがあるが、写しの交付を求めること自体は正当"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "ARE" :jurisdiction/iso3166-alpha2 "AE"
+  :jurisdiction/name-ja "アラブ首長国連邦" :jurisdiction/name-en "United Arab Emirates"
+  :jurisdiction/emergency-police "999"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "TUR" :jurisdiction/iso3166-alpha2 "TR"
+  :jurisdiction/name-ja "トルコ" :jurisdiction/name-en "Türkiye"
+  :jurisdiction/emergency-universal "112"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "EGY" :jurisdiction/iso3166-alpha2 "EG"
+  :jurisdiction/name-ja "エジプト" :jurisdiction/name-en "Egypt"
+  :jurisdiction/emergency-police "122"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "ZAF" :jurisdiction/iso3166-alpha2 "ZA"
+  :jurisdiction/name-ja "南アフリカ" :jurisdiction/name-en "South Africa"
+  :jurisdiction/emergency-police "10111"
+  :jurisdiction/emergency-alt "112"
+  :jurisdiction/notes "112 は携帯からの緊急番号として機能する"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "BRA" :jurisdiction/iso3166-alpha2 "BR"
+  :jurisdiction/name-ja "ブラジル" :jurisdiction/name-en "Brazil"
+  :jurisdiction/emergency-police "190"
+  :jurisdiction/emergency-medical "192"
+  :jurisdiction/police-report-term "boletim de ocorrência (B.O.)"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "MEX" :jurisdiction/iso3166-alpha2 "MX"
+  :jurisdiction/name-ja "メキシコ" :jurisdiction/name-en "Mexico"
+  :jurisdiction/emergency-universal "911"
+  :jurisdiction/police-report-term "denuncia"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "ARG" :jurisdiction/iso3166-alpha2 "AR"
+  :jurisdiction/name-ja "アルゼンチン" :jurisdiction/name-en "Argentina"
+  :jurisdiction/emergency-universal "911"
+  :jurisdiction/emergency-police "101"
+  :jurisdiction/police-report-term "denuncia"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "CHL" :jurisdiction/iso3166-alpha2 "CL"
+  :jurisdiction/name-ja "チリ" :jurisdiction/name-en "Chile"
+  :jurisdiction/emergency-police "133"
+  :jurisdiction/police-report-term "denuncia"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}
+
+ {:kakekomi/kind "jurisdiction"
+  :jurisdiction/iso3166-alpha3 "PER" :jurisdiction/iso3166-alpha2 "PE"
+  :jurisdiction/name-ja "ペルー" :jurisdiction/name-en "Peru"
+  :jurisdiction/emergency-police "105"
+  :jurisdiction/police-report-term "denuncia"
+  :fact/confidence :well-established :fact/verification :pending-primary-source}]

@@ -1,0 +1,23 @@
+;; この repo が満たすと主張する契約。
+;; 検査される先の authority は superproject の manifest/repository-rules.edn
+;; （ADR-2607299000）。ここに置くのは「この repo 単体を読む人が、どの契約を
+;; 主張しているかを見られるようにする」ためであって、規約の正本ではない。
+
+{:schema "kotoba.repository-role-rules.v0"
+ :vocabulary :name-prefix
+ :prefix nil
+ :role :library
+ :execution :none
+ :name "kakekomi"
+ :must [:provide-reusable-contract]
+ :must-not [:hold-a-loop :require-a-clock :read-the-filesystem :decide-a-case]
+ :rationale
+ "prefix 無し = reusable library。kakekomi.core は状態も時計もファイル I/O も
+  持たず、呼び出し側が読み込んだ entity 列に対して純粋に答えるだけである
+  （kotoba-lang/ao と同じ runner-free / clock-free の形）。data/*.edn を
+  読むのは run-tests.cljs と下流の consumer の責任。
+
+  :decide-a-case を must-not に入れているのは設計上の要請である。この corpus は
+  手続きの順序と参照先しか持たず、個別の事案について何が正しいかを判定しない。
+  下流の cloud-kyusai が『提案するが決めない』形を保てるのは、この層が
+  決めないからである。"}

@@ -1,0 +1,231 @@
+;; kakekomi — 犯罪類型別の初動 playbook（法域に依らない層）
+;;
+;; 形式: トップレベルは entity map の vector（manifest/edn-query.cljs の
+;; vector-of-maps-entities がそのまま読める形）。1 entity = 1 犯罪類型。
+;;
+;; 法域ごとに変わる値（緊急番号・被害届の現地名称・在外公館）はここに書かない
+;; ——data/jurisdiction.edn 側が持ち、:jurisdiction/iso3166-alpha3 で join する。
+;;
+;; 各 entity は自分の根拠を :fact/basis に持つ。根拠を書けない主張はこの
+;; ファイルに入れない（捏造禁止）。
+
+[{:kakekomi/kind "playbook"
+  :playbook/id "pickpocket"
+  :playbook/crime-type :pickpocket
+  :playbook/label-ja "スリ"
+  :playbook/label-en "Pickpocketing"
+  :playbook/violence :none
+  :playbook/immediate
+  ["その場を離れて安全な場所（店内・ホテル・駅事務室）へ移動する。犯人を追わない——共犯者が待つ導線に誘導される類型がある"
+   "何を取られたかを声に出して数える: 現金 / カード / パスポート / スマホ / 鍵。取られていない物を先に確定させると以後の申告が正確になる"]
+  :playbook/hours
+  ["カード会社の 24 時間緊急デスクへ連絡し停止（国際コレクトコール可の番号を控えておく）。カード裏面の番号は財布ごと失われているので、事前に別媒体へ控える必要がある"
+   "スマホを取られた場合は remote lock / erase と SIM 停止。メールと SMS を握られると 2 要素認証が突破されるため、カード停止よりこちらが先になることがある"
+   "現地警察へ被害届を出し、書面（または受理番号）をその場で受け取る"]
+  :playbook/days
+  ["パスポートを取られた場合は在外公館へ（consular-jp.edn 参照）"
+   "保険会社へ事故連絡。請求は帰国後でよいが、証明書類の取得は現地でしかできない"]
+  :playbook/evidence
+  ["現地警察の被害届の写し、または受理番号（保険・パスポート・カード再発行のすべてで鍵になる共通の証拠）"
+   "盗難品の購入時レシート／保証書（携行品損害の請求で求められる）"
+   "被害の日時・場所・状況（保険金請求書に自分で書く欄がある）"]
+  :playbook/pitfalls
+  ["警察が『lost（紛失）』として処理しようとすることがある。事実として盗難なら theft / robbery と記載してもらう——多くの海外旅行保険の携行品損害は『置き忘れ・紛失』を免責とし、『盗難』のみを担保する（insurance.edn 参照）。事実と異なる申告をせよという意味ではなく、事実が盗難なら盗難と正しく記録させるということ"
+   "『帰国後に郵送する』『後日取りに来い』で書面を受け取らないまま出国すると、帰国後の取得は実務上ほぼ不可能になる"
+   "現地語の書類は内容が読めなくても必ずその場で全ページ撮影する"]
+  :fact/confidence :well-established
+  :fact/basis "犯罪類型そのものの初動（安全確保→停止→届出→証拠保全）は法域に依らない一般手順。保険・パスポート側の要件は insurance.edn / consular-jp.edn の一次情報に裏付けを持つ"}
+
+ {:kakekomi/kind "playbook"
+  :playbook/id "bag-snatch"
+  :playbook/crime-type :bag-snatch
+  :playbook/label-ja "ひったくり"
+  :playbook/label-en "Bag snatching"
+  :playbook/violence :incidental
+  :playbook/immediate
+  ["掴まれた鞄・紐を離す。バイク／自転車によるひったくりで持ち手を離さず引きずられ、盗難被害より重い外傷を負う類型がある"
+   "転倒・接触があれば負傷の有無を確認する。頭部を打っていれば受診を優先し、届出は後でよい"]
+  :playbook/hours
+  ["受診した場合は診断書と領収書を必ず受け取る（治療費用担保の請求に要る）"
+   "カード停止・端末ロックは pickpocket と同じ"
+   "現地警察へ被害届。負傷がある場合はその旨も記載させる"]
+  :playbook/days
+  ["パスポート・保険は pickpocket と同じ経路"]
+  :playbook/evidence
+  ["被害届（受傷の記載を含む）"
+   "診断書・治療費の領収書（原本。帰国後の請求で提出する）"]
+  :playbook/pitfalls
+  ["治療費の領収書を捨てる／写真だけ撮って原本を捨てると請求できないことがある"
+   "軽傷だからと受診しないと、帰国後に悪化しても因果関係を示せない"]
+  :fact/confidence :well-established
+  :fact/basis "同上。傷害を伴う場合の診断書要件は各社の海外旅行保険約款に共通する請求書類要件"}
+
+ {:kakekomi/kind "playbook"
+  :playbook/id "mugging"
+  :playbook/crime-type :mugging
+  :playbook/label-ja "強盗（暴行・脅迫を伴う）"
+  :playbook/label-en "Mugging / robbery"
+  :playbook/violence :direct
+  :playbook/immediate
+  ["抵抗しない。要求されたものを渡す。財物は再発行できるが身体は戻らない"
+   "相手の人数・武器の有無を確認したら、視線を合わせ続けず、離脱できる方向へ下がる"
+   "離脱後ただちに緊急番号（jurisdiction.edn の :jurisdiction/emergency-police）へ通報し、負傷があれば救急を要請する"]
+  :playbook/hours
+  ["受診——外傷がなくても打撲・脳震盪は後から出る"
+   "カード停止・端末ロック"
+   "警察の被害届。強盗（robbery）と窃盗（theft）は罪名も保険の扱いも別なので、暴行・脅迫があった事実を記載させる"]
+  :playbook/days
+  ["在外公館へ連絡する。パスポート再発給に加え、重大事件では邦人保護の対象になり、弁護士・医療機関・通訳の情報提供を受けられる"
+   "帰国後の心理的影響（不眠・フラッシュバック）は治療対象になりうる。保険の担保範囲を確認する"]
+  :playbook/evidence
+  ["被害届（暴行・脅迫の事実を含む）"
+   "診断書・治療費領収書"
+   "負傷部位の写真（日付が入るよう撮る）"]
+  :playbook/pitfalls
+  ["『渡してしまったから自分が悪い』と考えて届出をためらう——保険・パスポート・カードのすべてが被害届を起点にするので、届出しないと以後の手続きが全部止まる"
+   "在外公館は代理で手続きをしてくれる機関ではない。何をしてもらえるかを誤解したまま期待して時間を失わない（consular-jp.edn の :consular/scope 参照）"]
+  :fact/confidence :well-established
+  :fact/basis "邦人保護の範囲は外務省 海外安全ホームページの記載に基づく。抵抗しないという指針は各国当局・在外公館の一般的助言として広く共有されている"}
+
+ {:kakekomi/kind "playbook"
+  :playbook/id "distraction-theft"
+  :playbook/crime-type :distraction-theft
+  :playbook/label-ja "置き引き・注意そらし"
+  :playbook/label-en "Distraction theft"
+  :playbook/violence :none
+  :playbook/immediate
+  ["直前に接触した人物・出来事を時系列で書き出す（ケチャップを掛けられた、署名を求められた、地図を広げられた、子供に囲まれた等）。この記録が『置き忘れ』でなく『窃盗』であることの説明になる"
+   "店舗・駅・空港なら、その場で係員に申告して防犯カメラの保全を依頼する"]
+  :playbook/hours
+  ["カード停止・端末ロック"
+   "警察へ被害届。注意をそらされた具体的手口を述べる"]
+  :playbook/days
+  ["パスポート・保険は pickpocket と同じ"]
+  :playbook/evidence
+  ["被害届"
+   "施設側の記録（インシデント番号・担当者名）"]
+  :playbook/pitfalls
+  ["この類型は保険上いちばん争われる。『目を離した』事実だけが記録に残ると『置き忘れ（免責）』と判定されうるので、第三者の作為があったことを最初の申告から一貫して記録に残す"]
+  :fact/confidence :well-established
+  :fact/basis "携行品損害における『置き忘れ・紛失』免責は複数の国内損保 FAQ・国民生活センターの相談事例で確認できる（insurance.edn の :fact/primary-source）"}
+
+ {:kakekomi/kind "playbook"
+  :playbook/id "fake-police"
+  :playbook/crime-type :fake-police
+  :playbook/label-ja "偽警官（財布・現金の『検査』を装う）"
+  :playbook/label-en "Fake police officer scam"
+  :playbook/violence :threat
+  :playbook/immediate
+  ["財布・パスポートを手渡さない。制服・バッジの提示があっても、身分証の確認と『最寄りの警察署へ同行する』要求は正当であり、その場で現金を検めさせることは通常正当でない"
+   "危険を感じたら渡す（身体の安全が優先）。渡した場合は以後 mugging と同じ経路に入る"
+   "可能なら緊急番号へその場で電話し、本物の警察に照会する。この行動自体が偽警官には強い抑止になる"]
+  :playbook/hours
+  ["カード停止・端末ロック"
+   "本物の警察へ被害届。偽警官を騙る手口であったことを明示する"]
+  :playbook/days
+  ["在外公館へ情報提供する。同一手口の被害が集中している地域では注意喚起の材料になる"]
+  :playbook/evidence
+  ["被害届"
+   "相手の外見・言語・使用した車両やバッジの特徴"]
+  :playbook/pitfalls
+  ["『警察に渡したのだから盗難ではない』と自分で判断して届出しない——詐欺・窃盗として立件されうる"]
+  :fact/confidence :reported-pattern
+  :fact/basis "偽警官型の手口は外務省 海外安全ホームページの国別安全情報で繰り返し注意喚起されている類型。ただし『何が正当な職務質問か』は法域ごとに異なるため、jurisdiction 側に個別の記載がない国では一般則として扱う"}
+
+ {:kakekomi/kind "playbook"
+  :playbook/id "phone-snatch"
+  :playbook/crime-type :phone-snatch
+  :playbook/label-ja "スマートフォンの強奪・窃盗"
+  :playbook/label-en "Phone theft"
+  :playbook/violence :incidental
+  :playbook/immediate
+  ["別の端末（同行者・ホテル・店舗）を借りて、まず自分のアカウントの遠隔ロックを掛ける。財物としての端末より、中の認証情報の方が被害額が大きくなりうる"
+   "画面ロックが解除された状態で奪われた場合は、銀行・決済アプリのパスワード変更を最優先にする"]
+  :playbook/hours
+  ["SIM の停止（通信事業者）と、SMS を使う 2 要素認証の再構成"
+   "決済アプリ・モバイルウォレットの停止"
+   "警察へ被害届（端末の IMEI があれば伝える）"]
+  :playbook/days
+  ["保険の携行品損害は端末も対象になりうるが、機種・購入証明が要る"
+   "帰国後、不正利用の有無を明細で確認する"]
+  :playbook/evidence
+  ["被害届"
+   "IMEI・購入証明"
+   "不正利用があった場合はその明細"]
+  :playbook/pitfalls
+  ["カード停止を先にして端末ロックを後回しにすると、その間に SMS 認証で口座側を破られることがある。どちらを先にするかは『どちらがロック解除状態で奪われたか』で決まる"
+   "遠隔消去を早く掛けすぎると位置追跡ができなくなる。警察が追跡を求める場合は順序を相談する"]
+  :fact/confidence :well-established
+  :fact/basis "端末側の停止手順は各 OS ベンダの公開手順に基づく一般則。優先順位の判断は本 corpus の設計判断であり、法域固有の助言ではない"}
+
+ {:kakekomi/kind "playbook"
+  :playbook/id "accommodation-burglary"
+  :playbook/crime-type :accommodation-burglary
+  :playbook/label-ja "宿泊先での盗難"
+  :playbook/label-en "Accommodation burglary"
+  :playbook/violence :none
+  :playbook/immediate
+  ["部屋の中を動かす前に現状を撮影する（こじ開け痕・荒らされた状態）"
+   "フロント／管理者に即時申告し、インシデント記録を起こさせる。番号と担当者名を控える"]
+  :playbook/hours
+  ["カード停止・端末ロック"
+   "警察へ被害届。宿泊施設のインシデント番号を併せて伝える"]
+  :playbook/days
+  ["施設側の賠償と保険の重複を確認する（先に施設が補償した分は保険から出ない）"]
+  :playbook/evidence
+  ["被害届"
+   "施設のインシデント記録"
+   "現場写真"
+   "セーフティボックス使用の有無（約款上の扱いが変わることがある）"]
+  :playbook/pitfalls
+  ["清掃が入ると現場が失われる。申告前に部屋を片付けない"
+   "『施設が弁償すると言ったから』と警察に届けないと、施設が後で応じなかったときに何も残らない"]
+  :fact/confidence :well-established
+  :fact/basis "現場保全と二重補償の調整は損害保険一般の原則。施設側の責任範囲は国・約款ごとに異なるため断定していない"}
+
+ {:kakekomi/kind "playbook"
+  :playbook/id "sexual-assault"
+  :playbook/crime-type :sexual-assault
+  :playbook/label-ja "性犯罪"
+  :playbook/label-en "Sexual assault"
+  :playbook/violence :direct
+  :playbook/immediate
+  ["安全な場所へ移動し、信頼できる人に同席してもらう"
+   "医療を最優先にする。届出をするかどうかは後で決められるが、医療的処置と証拠採取には時間制限がある"
+   "在外公館へ連絡する。邦人保護の対象であり、医療機関・通訳・弁護士の情報提供を受けられる"]
+  :playbook/hours
+  ["医療機関を受診する。証拠採取を希望する場合は、シャワー・着替え・洗濯の前に受診する必要がある"
+   "届出の意思がある場合は警察へ。国によって性犯罪の届出・捜査の実務は大きく異なる"]
+  :playbook/days
+  ["帰国後の継続的な医療・心理的支援につなぐ"]
+  :playbook/evidence
+  ["医療機関の記録"
+   "届出をした場合は被害届"]
+  :playbook/pitfalls
+  ["この playbook は手続きの順序しか持たない。判断を急かす道具として使わない——届け出るかどうかは本人が決めることであり、この corpus はその決定を代行しない"]
+  :playbook/handling :sensitive
+  :fact/confidence :procedural-only
+  :fact/basis "在外公館による邦人保護（医療機関・通訳・弁護士の情報提供）は外務省の公表する領事サービスの範囲。医療・証拠採取の時間制限は一般的な医学的事実だが、実務は法域ごとに異なるため国別の断定はしていない"}
+
+ {:kakekomi/kind "playbook"
+  :playbook/id "atm-card-fraud"
+  :playbook/crime-type :atm-card-fraud
+  :playbook/label-ja "スキミング・カード不正利用"
+  :playbook/label-en "Skimming / card fraud"
+  :playbook/violence :none
+  :playbook/immediate
+  ["カードを停止する。物理的にカードが手元にあっても、情報だけ複製されている類型なので手元にあることは安全を意味しない"
+   "利用明細をその場で確認し、身に覚えのない取引を特定する"]
+  :playbook/hours
+  ["カード会社へ不正利用の申告（多くの発行会社が申告期限を定めている）"
+   "現地警察へ被害届。カード会社が求めることがある"]
+  :playbook/days
+  ["帰国後も数か月は明細を確認する。時間差で使われる類型がある"]
+  :playbook/evidence
+  ["不正利用の明細"
+   "被害届（カード会社が求める場合）"
+   "使用した ATM・店舗の場所と日時"]
+  :playbook/pitfalls
+  ["申告が遅れると発行会社の補償期限を過ぎることがある。期限は会社ごとに異なるので、自分のカードの規定を渡航前に確認しておく"]
+  :fact/confidence :well-established
+  :fact/basis "補償期限が発行会社ごとに定められている点は各社の会員規約に共通する。具体的な日数は会社差があるため書いていない"}]

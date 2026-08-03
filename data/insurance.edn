@@ -1,0 +1,78 @@
+;; kakekomi — 海外旅行保険の請求要件（日本の損害保険を想定）
+;;
+;; ここに書くのは「現地で何を取らないと後で請求できなくなるか」だけである。
+;; 個別の約款・支払可否は会社と商品ごとに異なり、この corpus は判定しない。
+;;
+;; 2026-08-03 に国内損保各社の公開 FAQ と国民生活センターの相談事例を参照して
+;; 確認した項目に :verified-primary-source を付けている。
+
+[{:kakekomi/kind "insurance-requirement"
+  :insurance/id "police-report-required"
+  :insurance/coverage :personal-belongings
+  :insurance/label-ja "携行品損害には現地警察の証明が要る"
+  :insurance/summary
+  "携行品の盗難で保険金を請求するには、被害地の警察へ届け出て盗難証明書（事故証明書 / police report）を得ることが原則として必要になる。"
+  :insurance/timing :on-site
+  :insurance/why-on-site
+  "証明書は被害地の警察署で発行される。帰国後に日本から取得することは実務上きわめて難しいため、出国前に必ず受け取る。"
+  :insurance/source-urls
+  ["https://adcc-faq.aioinissaydowa.co.jp/faq/show/198"
+   "https://faq2.ms-ins.com/faq/show/1511"
+   "https://www.hs-sonpo.co.jp/demand/theft.php"]
+  :insurance/last-verified "2026-08-03"
+  :fact/confidence :well-established
+  :fact/verification :verified-primary-source}
+
+ {:kakekomi/kind "insurance-requirement"
+  :insurance/id "lost-vs-stolen"
+  :insurance/coverage :personal-belongings
+  :insurance/label-ja "『置き忘れ・紛失』は担保されないことがある"
+  :insurance/summary
+  "多くの商品で、携行品損害が担保するのは盗難・破損等であり、被保険者自身の『置き忘れ』『紛失』は免責とされる。同じ被害でも記録上どちらとして扱われるかで結論が変わる。"
+  :insurance/practical-consequence
+  "第三者の作為があった事実（すり替え・注意そらし・こじ開け）は、最初の申告から一貫して記録に残す。事実と異なる申告をするという意味ではなく、事実が盗難であるなら盗難として正確に記録させるということ。"
+  :insurance/source-urls
+  ["https://www.kokusen.go.jp/t_box/data/t_box-faq_qa2012_14.html"
+   "https://hoken-navi.docomo.ne.jp/dmg-ins/travel/manual/manual03.html"]
+  :insurance/last-verified "2026-08-03"
+  :fact/confidence :well-established
+  :fact/verification :verified-primary-source
+  :fact/note "免責の具体的な文言は商品ごとに異なる。ここでは『そういう区別が存在し、結論を左右する』という構造だけを記録している"}
+
+ {:kakekomi/kind "insurance-requirement"
+  :insurance/id "purchase-evidence"
+  :insurance/coverage :personal-belongings
+  :insurance/label-ja "購入を示す書類が要る"
+  :insurance/summary
+  "請求時には、盗難品の購入時のレシート・保証書・取扱説明書など、所有と価額を示す書類の提出を求められる。"
+  :insurance/practical-consequence
+  "高額品を持って渡航するなら、購入証憑を事前に撮影してクラウドに置いておく。財布ごと失うと現地では何も出せない。"
+  :insurance/source-urls
+  ["https://hoken-navi.docomo.ne.jp/dmg-ins/travel/manual/manual05.html"]
+  :insurance/last-verified "2026-08-03"
+  :fact/confidence :well-established
+  :fact/verification :verified-primary-source}
+
+ {:kakekomi/kind "insurance-requirement"
+  :insurance/id "claim-timing"
+  :insurance/coverage :general
+  :insurance/label-ja "事故連絡は現地から、請求は帰国後でよい"
+  :insurance/summary
+  "保険金の請求手続き自体は帰国後に行うのが一般的だが、現地でしか取得できない書類（事故証明書・診断書）は現地にいるうちに揃える必要がある。"
+  :insurance/timing :split
+  :insurance/source-urls
+  ["https://hoken-navi.docomo.ne.jp/dmg-ins/travel/manual/manual05.html"]
+  :insurance/last-verified "2026-08-03"
+  :fact/confidence :well-established
+  :fact/verification :verified-primary-source}
+
+ {:kakekomi/kind "insurance-requirement"
+  :insurance/id "medical-documents"
+  :insurance/coverage :medical
+  :insurance/label-ja "負傷したら診断書と領収書の原本を保持する"
+  :insurance/summary
+  "治療費用の請求には現地医療機関の診断書と領収書が要る。原本の提出を求められることがあるため、写真だけ撮って原本を処分しない。"
+  :insurance/timing :on-site
+  :fact/confidence :well-established
+  :fact/verification :pending-primary-source
+  :fact/note "各社の請求書類要件に共通する一般則として記載。個別商品の要否は約款による"}]

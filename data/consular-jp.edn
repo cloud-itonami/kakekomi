@@ -1,0 +1,117 @@
+;; kakekomi — 日本国籍者の領事手続き（旅券の紛失・盗難とその後）
+;;
+;; 形式: entity map の vector。国籍側の手続きであって法域側の手続きではないので、
+;; jurisdiction.edn とは別ファイルにしている（結合キーは :consular/nationality）。
+;;
+;; :fact/verification :verified-primary-source の entity は、2026-08-03 に
+;; 外務省の公表ページを実際に参照して確認した。それ以外を確認済みとして扱わない。
+
+[{:kakekomi/kind "consular-procedure"
+  :consular/id "jp-passport-lost-notification"
+  :consular/nationality "JPN"
+  :consular/procedure :lost-notification
+  :consular/label-ja "旅券の紛失・盗難届出"
+  :consular/summary
+  "国外で旅券を紛失・盗難された場合、最寄りの在外公館（大使館・総領事館）へ連絡し、紛失一般旅券等届出書を提出する。届け出た時点で当該旅券は失効する。以後、新規旅券の発給を受けるか、帰国のための渡航書の交付を受けるかを選ぶ。"
+  :consular/prerequisite
+  ["現地警察へ届け出て、被害届（police report）の写しまたは受理番号を得ておく"]
+  :consular/source-url "https://www.anzen.mofa.go.jp/c_info/passport.html"
+  :consular/last-verified "2026-08-03"
+  :fact/confidence :well-established
+  :fact/verification :verified-primary-source}
+
+ {:kakekomi/kind "consular-procedure"
+  :consular/id "jp-emergency-travel-document"
+  :consular/nationality "JPN"
+  :consular/procedure :emergency-travel-document
+  :consular/label-ja "帰国のための渡航書"
+  :consular/summary
+  "旅券を紛失・盗難され、急いで日本へ帰国する必要がある場合に、旅券の代わりに交付を受けられる書類。日本へ直接帰国する行程で使うもので、通常の旅券の代替として周遊に使えるものではない。"
+  :consular/required-documents
+  ["6か月以内に発行された戸籍謄本または抄本（原本）1通、または日本国籍を有することを確認できる書類"
+   "6か月以内に撮影された顔写真 縦45mm×横35mm 1葉"
+   "日程等が確認できる書類（航空券・予約確認書など）"]
+  :consular/preparation-note
+  "旅券の再発給には戸籍謄本が要るため、渡航時に携行しておくと現地での手続きが速い（外務省が推奨している）"
+  :consular/source-url "https://www.mofa.go.jp/mofaj/toko/passport/pass_5.html"
+  :consular/related-url "https://www.anzen.mofa.go.jp/c_info/passport.html"
+  :consular/last-verified "2026-08-03"
+  :fact/confidence :well-established
+  :fact/verification :verified-primary-source}
+
+ {:kakekomi/kind "consular-procedure"
+  :consular/id "jp-passport-reissue-abroad"
+  :consular/nationality "JPN"
+  :consular/procedure :passport-reissue
+  :consular/label-ja "在外公館での旅券の新規発給"
+  :consular/summary
+  "帰国を急がず滞在を続ける場合は、在外公館で新たな旅券の発給を申請する。紛失届出とセットで扱われる。交付までに日数を要するため、渡航日程に影響する。"
+  :consular/source-url "https://www.mofa.go.jp/mofaj/toko/passport/pageit_000001_00080.html"
+  :consular/last-verified "2026-08-03"
+  :fact/confidence :well-established
+  :fact/verification :verified-primary-source}
+
+ {:kakekomi/kind "consular-advisory"
+  :consular/id "jp-schengen-passport-loss"
+  :consular/nationality "JPN"
+  :consular/label-ja "シェンゲン領域内での旅券紛失"
+  :consular/summary
+  "シェンゲン領域内で旅券を紛失した場合、域内移動と出域の扱いに固有の注意点がある。外務省が専用の案内ページを設けているため、欧州で被害に遭った場合は一般の旅券案内ではなくこちらを参照する。"
+  :consular/source-url "https://www.anzen.mofa.go.jp/c_info/oshirase_schengen.html"
+  :consular/last-verified "2026-08-03"
+  :fact/confidence :well-established
+  :fact/verification :verified-primary-source
+  :fact/note "この corpus は当該ページの具体的な運用内容を転記していない（更新されうるため）。参照先を指すことだけを役割にしている"}
+
+ {:kakekomi/kind "consular-advisory"
+  :consular/id "jp-no-mission-country"
+  :consular/nationality "JPN"
+  :consular/label-ja "在外公館が設置されていない国での被害"
+  :consular/summary
+  "日本の在外公館が設置されていない国・地域では、支援を受けられる窓口が近隣国の公館などになる。外務省が専用の案内を設けている。"
+  :consular/source-url "https://www.anzen.mofa.go.jp/c_info/not_zaigaikoukan.html"
+  :consular/last-verified "2026-08-03"
+  :fact/confidence :well-established
+  :fact/verification :verified-primary-source}
+
+ {:kakekomi/kind "consular-advisory"
+  :consular/id "jp-taiwan-interchange-association"
+  :consular/nationality "JPN"
+  :jurisdiction/iso3166-alpha3 "TWN"
+  :consular/label-ja "台湾での領事相当支援"
+  :consular/summary
+  "日本は台湾と外交関係を持たないため、大使館・総領事館は置かれていない。領事業務に相当する支援は日本台湾交流協会が担う。"
+  :fact/confidence :well-established
+  :fact/verification :pending-primary-source
+  :fact/note "枠組みとしての事実は確立しているが、この corpus としては一次情報での確認を行っていない。窓口の所在・連絡先は転記していない"}
+
+ {:kakekomi/kind "consular-scope"
+  :consular/id "jp-consular-scope"
+  :consular/nationality "JPN"
+  :consular/label-ja "在外公館にできること・できないこと"
+  :consular/can
+  ["旅券の紛失届の受理、新規発給、帰国のための渡航書の交付"
+   "現地の医療機関・弁護士・通訳に関する情報提供"
+   "家族への連絡の仲介"
+   "事件・事故に遭った邦人の保護に関する一般的な援助"]
+  :consular/cannot
+  ["被害者に代わって捜査を行うこと、捜査を指揮すること"
+   "治療費・帰国費用・弁護士費用を負担すること"
+   "現地の司法手続きに介入して結果を変えること"
+   "本人に代わって各種手続きを代行すること"]
+  :consular/why-this-matters
+  "『大使館に行けば何とかしてもらえる』という期待でまず公館へ向かい、警察の届出とカード停止が後回しになる失敗がある。公館が担うのは旅券と情報提供であって、初動の停止・届出は本人が行う。"
+  :fact/confidence :well-established
+  :fact/verification :pending-primary-source
+  :fact/note "外務省が公表する領事サービスの一般的範囲に基づく要約。個別の公館・個別の事案で提供される支援は異なりうる"}
+
+ {:kakekomi/kind "consular-registry"
+  :consular/id "jp-tabireji"
+  :consular/nationality "JPN"
+  :consular/label-ja "たびレジ / 在留届"
+  :consular/summary
+  "短期渡航は『たびレジ』、3か月以上の滞在は在留届。登録しておくと、緊急時に外務省・在外公館から連絡を受けられる。被害後に登録しても意味がないため、渡航前の項目として扱う。"
+  :consular/timing :before-departure
+  :consular/source-url "https://www.anzen.mofa.go.jp/"
+  :fact/confidence :well-established
+  :fact/verification :pending-primary-source}]
