@@ -102,10 +102,23 @@
 
 ;; ---------------------------------------------------------------------------
 
-(let [{:keys [fail error]} (t/run-tests 'kakekomi.core-test 'user)]
+;; The exit code comes from the :end-run-tests report hook, NOT from the return
+;; value of `run-tests`. Under nbb that value is nil, so the previous spelling
+;;
+;;   (let [{:keys [fail error]} (t/run-tests 'ns)]
+;;     (js/process.exit (if (pos? (+ fail error)) 1 0)))
+;;
+;; destructured nil twice, added them to 0, and exited **0 with failures on the
+;; screen** -- a red suite and a green suite returned the same value, which
+;; makes every other check in this repository decorative. Measured 2026-08-30
+;; against this repository's own suite before the change: failures, exit 0.
+;; ADR-2608301500.
+(defmethod t/report [:cljs.test/default :end-run-tests] [m]
   (println)
   (println (str "corpus: " (count corpus) " entities / "
                 (count (k/jurisdictions corpus)) " jurisdictions / "
                 (count (k/playbooks corpus)) " playbooks / "
                 (count (k/unverified corpus)) " pending primary-source verification"))
-  (js/process.exit (if (pos? (+ fail error)) 1 0)))
+  (js/process.exit (if (t/successful? m) 0 1)))
+
+(t/run-tests 'kakekomi.core-test 'user)
