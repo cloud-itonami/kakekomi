@@ -10,7 +10,7 @@
 (require '["node:fs" :as fs]
          '["node:path" :as path]
          '[clojure.edn :as edn]
-         '[clojure.string :as str]
+         '[kotoba.lang.text :as str]
          '[clojure.test :as t]
          '[kakekomi.core :as k]
          'kakekomi.core-test)
