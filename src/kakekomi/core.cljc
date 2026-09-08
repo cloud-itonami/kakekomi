@@ -14,7 +14,7 @@
   持っていない値を推測で埋めない。法域が corpus に無ければ checklist は
   黙って項目を落とさず :kakekomi/gap を返す——欠落を沈黙させると、下流は
   『該当なし』と読む。"
-  (:require [clojure.string :as str]))
+  (:require [kotoba.lang.text :as str]))
 
 ;; ---------------------------------------------------------------------------
 ;; 面の切り出し
@@ -52,7 +52,7 @@
    持っていない』を意味する（covered? / coverage を参照）。"
   [entities code]
   (when (string? code)
-    (let [c (str/upper-case (str/trim code))]
+    (let [c (str/upper (str/trim code))]
       (first (filter #(or (= c (:jurisdiction/iso3166-alpha3 %))
                           (= c (:jurisdiction/iso3166-alpha2 %)))
                      (jurisdictions entities))))))
