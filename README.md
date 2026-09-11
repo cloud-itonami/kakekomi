@@ -70,11 +70,11 @@ join できる 1 つの EDN 面として持つ。
 script host は **nbb**（`bb` は使わない — ADR-2607173000）。
 
 ```sh
-nbb --classpath src:test run-tests.cljs
+nbb --classpath src:test run-tests.cljk
 ```
 
-15 tests / 205 assertions。単体テスト（`test/kakekomi/core_test.cljc`、インライン
-fixture）と実データの整合性検査（`run-tests.cljs`）を分けている——後者が落ちるのは
+15 tests / 205 assertions。単体テスト（`test/kakekomi/core_test.cljk`、インライン
+fixture）と実データの整合性検査（`run-tests.cljk`）を分けている——後者が落ちるのは
 ロジックではなくデータの不備で、直す場所が違うため。
 
 整合性検査が固定していること: 全 entity が `:kakekomi/kind` と根拠を持つ /

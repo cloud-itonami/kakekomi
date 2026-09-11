@@ -30,7 +30,7 @@ ADR-2607289700）。本 ADR が決めるのは repo の内側の形。
 ### D2. 純粋 — fs も clock も持たない
 
 `kakekomi.core` は状態を持たず、時計を読まず、ファイルを読まない。`data/*.edn` を
-読むのは呼び出し側（`run-tests.cljs` と下流の consumer）。`kotoba-lang/ao` と同じ
+読むのは呼び出し側（`run-tests.cljk` と下流の consumer）。`kotoba-lang/ao` と同じ
 runner-free / clock-free の形で、`{:prefix nil :role :library :execution :none}` を
 満たす。
 
