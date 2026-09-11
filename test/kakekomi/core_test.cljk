@@ -2,7 +2,7 @@
   "kakekomi.core の単体テスト。
 
   ここでは実データを読まない——core は純粋なので、インラインの最小 fixture で
-  振る舞いを固定できる。実際の data/*.edn に対する整合性検査は run-tests.cljs
+  振る舞いを固定できる。実際の data/*.edn に対する整合性検査は run-tests.cljk
   側（corpus-integrity）が行う。両者を混ぜると、データを 1 行足しただけで
   ロジックのテストが落ちるようになる。"
   (:require [clojure.test :refer [deftest is testing]]

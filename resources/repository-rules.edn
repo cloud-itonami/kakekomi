@@ -15,7 +15,7 @@
  "prefix 無し = reusable library。kakekomi.core は状態も時計もファイル I/O も
   持たず、呼び出し側が読み込んだ entity 列に対して純粋に答えるだけである
   （kotoba-lang/ao と同じ runner-free / clock-free の形）。data/*.edn を
-  読むのは run-tests.cljs と下流の consumer の責任。
+  読むのは run-tests.cljk と下流の consumer の責任。
 
   :decide-a-case を must-not に入れているのは設計上の要請である。この corpus は
   手続きの順序と参照先しか持たず、個別の事案について何が正しいかを判定しない。
