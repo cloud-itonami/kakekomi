@@ -70,7 +70,7 @@ join できる 1 つの EDN 面として持つ。
 script host は **nbb**（`bb` は使わない — ADR-2607173000）。
 
 ```sh
-nbb --classpath src:test run-tests.cljk
+kbb --backend sci --classpath src:test run-tests.cljk
 ```
 
 15 tests / 205 assertions。単体テスト（`test/kakekomi/core_test.cljk`、インライン

@@ -1,7 +1,7 @@
-#!/usr/bin/env nbb
-;; nbb run-tests.cljk — kakekomi の単体テスト + 実 corpus の整合性検査
+#!/usr/bin/env kbb
+;; kbb --backend sci run-tests.cljk — kakekomi の単体テスト + 実 corpus の整合性検査
 ;;
-;; 実行: nbb --classpath src:test run-tests.cljk
+;; 実行: kbb --backend sci --classpath src:test run-tests.cljk
 ;;
 ;; script host は nbb（ADR-2607173000）。bb / bb.edn は使わない。
 ;; core 自体は fs も clock も持たない純粋な .cljc で、ファイルを読むのは

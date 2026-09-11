@@ -3,7 +3,7 @@
 ;; 実行時依存は無い（clojure.string のみ）。テストの host は nbb であって
 ;; JVM ではない（ADR-2607173000 / superproject CLAUDE.md の runtime 優先順位）:
 ;;
-;;   nbb --classpath src:test run-tests.cljk
+;;   kbb --backend sci --classpath src:test run-tests.cljk
 ;;
 ;; この deps.edn は、JVM 側の consumer が :local/root / :git/sha で src を
 ;; classpath に載せるためだけに置いてある。
