@@ -11,7 +11,7 @@
          '["node:path" :as path]
          '[kotoba.lang.edn :as edn]
          '[kotoba.lang.text :as str]
-         '[clojure.test :as t]
+         '[kotoba.test :as t]
          '[kakekomi.core :as k]
          'kakekomi.core-test)
 

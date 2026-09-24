@@ -5,7 +5,7 @@
   振る舞いを固定できる。実際の data/*.edn に対する整合性検査は run-tests.cljk
   側（corpus-integrity）が行う。両者を混ぜると、データを 1 行足しただけで
   ロジックのテストが落ちるようになる。"
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [kakekomi.core :as k]))
 
 (def fixture
