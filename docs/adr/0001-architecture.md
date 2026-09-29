@@ -70,7 +70,7 @@ superproject の runtime 優先順位は `kotoba wasm` > `clojurewasm` > `Clojur
 ため:
 
 1. **fs capability が無い** — corpus は EDN ファイル群で、それを読む経路が
-   Kotoba 側に存在しない（superproject CLAUDE.md「今日の既知ブロッカー」4）。
+   Kotoba 側に存在しない（superproject AGENTS.md「今日の既知ブロッカー」4）。
 2. **再帰的な値型が無い** — `playbook` の入れ子（vector of strings を持つ map の
    vector）は現在の Kotoba の値では表現できない。migration plan の W4 が計画して
    いるが未着地。

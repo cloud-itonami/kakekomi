@@ -1,7 +1,7 @@
 ;; kakekomi — pure corpus + query layer.
 ;;
 ;; 実行時依存は無い（clojure.string のみ）。テストの host は nbb であって
-;; JVM ではない（ADR-2607173000 / superproject CLAUDE.md の runtime 優先順位）:
+;; JVM ではない（ADR-2607173000 / superproject AGENTS.md の runtime 優先順位）:
 ;;
 ;;   kbb --backend sci --classpath src:test run-tests.cljk
 ;;

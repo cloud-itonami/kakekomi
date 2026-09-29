@@ -5,7 +5,7 @@
 ;; 該当なし」と読んでしまう。ここに差を数値で残し、載っていない国は
 ;; 「対象外」ではなく「まだ収集していない」であることを明示する。
 ;;
-;; superproject CLAUDE.md の system dynamics 節と同じ規律:
+;; superproject AGENTS.md の system dynamics 節と同じ規律:
 ;;   いかなる法域も categorical に除外しない。今日値を持たないことは
 ;;   カバレッジ未達であって対象外ではない。
 
